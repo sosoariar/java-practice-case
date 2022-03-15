@@ -21,5 +21,6 @@ public class MinDemo {
         // 函数式
         int min2 = IntStream.of(nums).min().getAsInt();
         System.out.println(min2);
+
     }
 }

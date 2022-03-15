@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>java8-case</module>
+        <module>redis-case</module>
     </modules>
 
     <properties>
