@@ -13,6 +13,7 @@
         <module>redis-case</module>
         <module>mybatis-case</module>
         <module>IPresistece_test</module>
+        <module>IPresistence</module>
     </modules>
 
     <properties>
