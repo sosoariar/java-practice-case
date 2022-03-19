@@ -1,9 +1,9 @@
 <mapper>
-    <select>
+    <select id="selectList">
         select * from user
     </select>
 
-    <select>
+    <select id="selectOne">
         select * from user where username = ? and id = ?
     </select>
 </mapper>
