@@ -1,6 +1,7 @@
 package com.soso.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.soso.io.Resources;
 import com.soso.pojo.Configuration;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -42,7 +43,13 @@ public class XMLConfigBuilder {
         configuration.setDataSource(comboPooledDataSource);
 
         // mapper.xml 解析
-
+        List<Element> mapperList = rootElement.selectNodes("//mapper");
+        for(Element element:mapperList){
+            String mapperPath = element.attributeValue("resource");
+            InputStream resourceAsStream = Resources.getResourceAsStream(mapperPath);
+            XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(configuration);
+            xmlMapperBuilder.parse(resourceAsStream);
+        }
 
         return null;
     }
