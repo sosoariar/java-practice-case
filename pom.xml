@@ -12,6 +12,7 @@
         <module>java8-case</module>
         <module>redis-case</module>
         <module>mybatis-case</module>
+        <module>IPresistece_test</module>
     </modules>
 
     <properties>
