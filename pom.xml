@@ -11,6 +11,7 @@
     <modules>
         <module>java8-case</module>
         <module>redis-case</module>
+        <module>mybatis-case</module>
     </modules>
 
     <properties>
