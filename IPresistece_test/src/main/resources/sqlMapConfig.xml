@@ -7,5 +7,6 @@
         <property name="password" value="123456"/>
     </dataSource>
 
+    <mapper resource="UserMapper.xml"/>
 
 </configuration>
