@@ -1,0 +1,9 @@
+<mapper>
+    <select>
+        select * from user
+    </select>
+
+    <select>
+        select * from user where username = ? and id = ?
+    </select>
+</mapper>
