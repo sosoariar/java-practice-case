@@ -1,10 +1,10 @@
 <mapper namespace="user">
 
-    <select id="selectList">
+    <select id="selectList" resultType = "com.soso.bean.User">
         select * from user
     </select>
 
-    <select id="selectOne">
+    <select id="selectOne" resultType = "com.soso.bean.User">
         select * from user where username = ? and id = ?
     </select>
 
