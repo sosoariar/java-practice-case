@@ -6,7 +6,6 @@ import com.soso.pojo.MappedStatement;
 import com.soso.utils.GenericTokenParser;
 import com.soso.utils.ParameterMapping;
 import com.soso.utils.ParameterMappingTokenHandler;
-import com.soso.utils.TokenHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
