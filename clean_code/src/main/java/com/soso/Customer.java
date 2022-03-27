@@ -20,6 +20,13 @@ public class Customer {
         return _name;
     }
 
+    /**
+     *  statement 负责的逻辑过于繁重
+     *  应对系统功能变化的修改
+     *  1. 当前以普通String的方式,换成以 Html 的方式输出, htmlStatement()
+     *  2.
+     * @return
+     */
     public String statement(){
 
         double totalAmount = 0;
