@@ -18,7 +18,7 @@ public class DefaultSqlSession implements SqlSession {
 
         SimpleExecutor simpleExecutor = new SimpleExecutor();
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementid);
-        List<Object> list = simpleExecutor.query(configuration,mappedStatement,params);
+//        List<Object> list = simpleExecutor.query(configuration,mappedStatement,params);
 
         return null;
     }
