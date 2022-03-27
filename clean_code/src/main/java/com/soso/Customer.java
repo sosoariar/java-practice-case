@@ -13,7 +13,7 @@ public class Customer {
     }
 
     public void addRental(Rental arg){
-        _rentals.addElement();
+        _rentals.addElement(arg);
     }
 
     public String getName(){
