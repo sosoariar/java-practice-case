@@ -24,7 +24,7 @@ public class Customer {
      *  statement 负责的逻辑过于繁重
      *  应对系统功能变化的修改
      *  1. 当前以普通String的方式,换成以 Html 的方式输出, htmlStatement()
-     *  2.
+     *  2. 计费标准发生变化,如何修改 statement 和 htmlStatement, 如果程序保存了很长时间,而且可能需要修改,复制粘贴就会有潜在威胁
      * @return
      */
     public String statement(){
