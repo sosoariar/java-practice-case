@@ -25,6 +25,7 @@ public class Customer {
      *  应对系统功能变化的修改
      *  1. 当前以普通String的方式,换成以 Html 的方式输出, htmlStatement()
      *  2. 计费标准发生变化,如何修改 statement 和 htmlStatement, 如果程序保存了很长时间,而且可能需要修改,复制粘贴就会有潜在威胁
+     *  3. thisAmount 多余了 Replace Temp with Query(120)
      * @return
      */
     public String statement(){
@@ -37,18 +38,15 @@ public class Customer {
 
         while(rentals.hasMoreElements()){
 
-            double thisAmount = 0;
             Rental each = (Rental) rentals.nextElement();
-
-            thisAmount = amountFor(each);
 
             frequentRenterPoints++;
             if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)&&each.getDaysRented()>1){
                 frequentRenterPoints++;
             }
 
-            result += "\t"+each.getMovie().getTitle()+"\t"+String.valueOf(thisAmount)+"\n";
-            totalAmount += thisAmount;
+            result += "\t"+each.getMovie().getTitle()+"\t"+String.valueOf(each.getCharge())+"\n";
+            totalAmount += each.getCharge();
         }
 
         result += "Amount owed is " + String.valueOf(totalAmount)+"\n";
@@ -58,33 +56,18 @@ public class Customer {
 
     /**
      * 重构过程中,返回类型发生了错误,但是因为double的结果自动转化为int而没有发现
-     * 重构后函数的局部变量可以修改
+     * 重构后函数的局部变量可以修改,变量名称是代码清晰的关键
+     *
+     * 问题 金额计算逻辑 aRental.getDaysRented() 并没有使用 Customer 类的数据；
+     * 绝大多数情况下,函数应该放在它所使用的数据的所属对象内
+     * moveMethod(142)
+     *
      * @param aRental
      * @return
      */
     private double amountFor(Rental aRental){
 
-        double result = 0;
-
-        switch(aRental.getMovie().getPriceCode()){
-            case Movie.REGULAR:
-                result += 2;
-                if(aRental.getDaysRented()>2){
-                    result += (aRental.getDaysRented()-2)*1.5;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                result += aRental.getDaysRented()*3;
-                break;
-            case Movie.CHILDRENS:
-                result += 1.5;
-                if(aRental.getDaysRented()>3){
-                    result += (aRental.getDaysRented()-3)*1.5;
-                }
-                break;
-        }
-
-        return result;
+        return aRental.getCharge();
 
     }
 
