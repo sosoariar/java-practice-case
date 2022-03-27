@@ -22,6 +22,7 @@
         <module>mybatis-case</module>
         <module>IPresistece_test</module>
         <module>IPresistence</module>
+        <module>clean_code</module>
     </modules>
 
     <properties>
