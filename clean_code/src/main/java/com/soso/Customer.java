@@ -27,28 +27,36 @@ public class Customer {
      *  2. 计费标准发生变化,如何修改 statement 和 htmlStatement, 如果程序保存了很长时间,而且可能需要修改,复制粘贴就会有潜在威胁
      *  3. thisAmount 多余了 Replace Temp with Query(120)
      *  4. frequentRenterPoints 在extract方法中并没重新读数,因此重构时不需要作为参数传入
+     *  5. Repalce Temp with Query
      * @return
      */
     public String statement(){
 
-        double totalAmount = 0;
         int frequentRenterPoints = 0;
-
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
 
         while(rentals.hasMoreElements()){
 
             Rental each = (Rental) rentals.nextElement();
-
             frequentRenterPoints += each.getFrequentRenterPoints();
-
             result += "\t"+each.getMovie().getTitle()+"\t"+String.valueOf(each.getCharge())+"\n";
-            totalAmount += each.getCharge();
+
         }
 
-        result += "Amount owed is " + String.valueOf(totalAmount)+"\n";
+        result += "Amount owed is " + String.valueOf(getTotalCharge())+"\n";
         result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+        return result;
+
+    }
+
+    private double getTotalCharge(){
+        double result = 0;
+        Enumeration rentals = _rentals.elements();
+        while(rentals.hasMoreElements()){
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getCharge();
+        }
         return result;
     }
 
