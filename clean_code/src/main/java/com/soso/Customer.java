@@ -26,6 +26,7 @@ public class Customer {
      *  1. 当前以普通String的方式,换成以 Html 的方式输出, htmlStatement()
      *  2. 计费标准发生变化,如何修改 statement 和 htmlStatement, 如果程序保存了很长时间,而且可能需要修改,复制粘贴就会有潜在威胁
      *  3. thisAmount 多余了 Replace Temp with Query(120)
+     *  4. frequentRenterPoints 在extract方法中并没重新读数,因此重构时不需要作为参数传入
      * @return
      */
     public String statement(){
@@ -40,10 +41,7 @@ public class Customer {
 
             Rental each = (Rental) rentals.nextElement();
 
-            frequentRenterPoints++;
-            if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)&&each.getDaysRented()>1){
-                frequentRenterPoints++;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
 
             result += "\t"+each.getMovie().getTitle()+"\t"+String.valueOf(each.getCharge())+"\n";
             totalAmount += each.getCharge();
@@ -52,6 +50,14 @@ public class Customer {
         result += "Amount owed is " + String.valueOf(totalAmount)+"\n";
         result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
         return result;
+    }
+
+    private int getFrequentRenterPoints(int frequentRenterPoints, Rental each) {
+        frequentRenterPoints++;
+        if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)&& each.getDaysRented()>1){
+            frequentRenterPoints++;
+        }
+        return frequentRenterPoints;
     }
 
     /**
