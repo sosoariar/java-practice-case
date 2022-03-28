@@ -7,11 +7,14 @@ public class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String _title ;
-    private int _priceCode;
+    private Price price;
 
-    public Movie(String _title, int _priceCode) {
-        this._title = _title;
-        this._priceCode = _priceCode;
+    /**
+     * 针对类型代码使用 SelfEncapsulate Field, 确保任何时候都通过取值函数和设置函数访问类型代码
+     */
+    public Movie(String title, int priceCode) {
+        this._title = title;
+        setPriceCode(priceCode);
     }
 
     public String getTitle() {
@@ -23,11 +26,23 @@ public class Movie {
     }
 
     public int getPriceCode() {
-        return _priceCode;
+        return price.getPriceCode();
     }
 
-    public void setPriceCode(int _priceCode) {
-        this._priceCode = _priceCode;
+    public void setPriceCode(int arg) {
+        switch(arg){
+            case REGULAR:
+                price = new RegularPrice();
+                break;
+            case CHILDRENS:
+                price = new ChildrensPrice();
+                break;
+            case NEW_RELEASE:
+                price = new NewReleasePrice();
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code");
+        }
     }
 
     /**
