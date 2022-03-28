@@ -22,6 +22,10 @@ public class Rental {
         return _movie.getCharge(_daysRented);
     }
 
+    /**
+     * 如何根据影片类型而变化的所有东西,放到影片类型所属的类中
+     * @return
+     */
     public int getFrequentRenterPoints() {
         if((getMovie().getPriceCode() == Movie.NEW_RELEASE)&&getDaysRented()>1){
             return 2;
