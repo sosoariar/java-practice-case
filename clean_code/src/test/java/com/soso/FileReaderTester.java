@@ -45,6 +45,16 @@ public class FileReaderTester extends TestCase {
         }
         assertEquals(-1,input.read());
     }
+    // 边界条件
+    public void testReadBoundaries() throws IOException{
+        assertEquals("read first char",'B',input.read());
+        int ch;
+        for(int i=1;i<140;i++){
+            ch = input.read();
+        }
+        assertEquals("read last char",'6',input.read());
+        assertEquals("read at end ",-1,input.read());
+    }
 
     public static TestSuite suite(){
         TestSuite suite = new TestSuite();
