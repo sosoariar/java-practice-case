@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class FileReaderTester extends TestCase {
 
@@ -35,6 +36,14 @@ public class FileReaderTester extends TestCase {
             ch = (char) input.read();
         }
         assert('d' == ch);
+    }
+
+    public void testReadAtEnd() throws IOException {
+        int ch = -1234;
+        for(int i=0; i<141; i++){
+            ch = input.read();
+        }
+        assertEquals(-1,input.read());
     }
 
     public static TestSuite suite(){
