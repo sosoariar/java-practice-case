@@ -49,6 +49,7 @@ public class FileReaderTester extends TestCase {
     public static TestSuite suite(){
         TestSuite suite = new TestSuite();
         suite.addTest(new FileReaderTester("testRead"));
+        suite.addTest(new FileReaderTester("testReadAtEnd"));
         return suite;
     }
 
