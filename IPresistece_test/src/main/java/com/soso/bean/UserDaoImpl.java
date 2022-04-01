@@ -24,7 +24,7 @@ public class UserDaoImpl implements IUserDao{
     }
 
     @Override
-    public User findByCondition(User user) throws Exception{
+    public User findByCondition(User user) throws Exception {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
