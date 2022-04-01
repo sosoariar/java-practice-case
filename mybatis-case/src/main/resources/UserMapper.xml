@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="user">
+<mapper namespace="com.soso.IUserDao">
 
     <select id="findAll" resultType="User">
-        select * from user
+        select * from user where 1=1
     </select>
 
     <insert id="insertUser" parameterType="User">
@@ -20,4 +20,18 @@
     <delete id="deleteUser" parameterType="java.lang.Integer">
         delete from user where id = #{id}
     </delete>
+
+    <select id="findByCondition" parameterType="User" resultType="User">
+        select * from user
+        <where>
+            <if test="id !=null">
+                and id = #{id}
+            </if>
+            <if test="username !=null">
+                and username = #{username}
+            </if>
+        </where>
+
+    </select>
+
 </mapper>

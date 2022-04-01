@@ -32,15 +32,6 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        User user = new User();
-        user.setId(3);
-        user.setUsername("tom");
-
-        sqlSession.insert("user.insertUser",user);
-        sqlSession.commit();
-
-        sqlSession.close();
-
     }
 
     @Test
@@ -74,4 +65,24 @@ public class MybatisTest {
         sqlSession.close();
 
     }
+
+    @Test
+    public void selectByCondition() throws IOException {
+
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+
+        User userTemp = new User();
+        userTemp.setUsername("tom");
+
+        List<User> all = mapper.findByCondition(userTemp);
+
+        for(User user:all){
+            Tools.log.info(user);
+        }
+
+    }
+
 }

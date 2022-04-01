@@ -8,6 +8,8 @@ SET foreign_key_checks = 0;
 
 select * from user;
 
+update user set username = 'java02' where id = '2';
+
 delete from user where id in ('1','2','10','11','12');
 
 commit;
