@@ -5,8 +5,12 @@
 
 <mapper namespace="com.soso.IUserDao">
 
+    <sql id="selectUser">
+        select * from user
+    </sql>
+
     <select id="findAll" resultType="User">
-        select * from user where 1=1
+        <include refid="selectUser"></include>
     </select>
 
     <insert id="insertUser" parameterType="User">
@@ -22,7 +26,7 @@
     </delete>
 
     <select id="findByCondition" parameterType="User" resultType="User">
-        select * from user
+        <include refid="selectUser"></include>
         <where>
             <if test="id !=null">
                 and id = #{id}
@@ -35,7 +39,7 @@
     </select>
 
     <select id="findByIds" parameterType="list" resultType="user">
-        select * from user
+        <include refid="selectUser"></include>
         <where>
             <foreach collection="array" open="id in (" close=")" item="id" separator=",">
                 #{id}
