@@ -1,4 +1,4 @@
-package com.soso.jdbc;
+package com.soso.bean;
 
 public class User {
 
