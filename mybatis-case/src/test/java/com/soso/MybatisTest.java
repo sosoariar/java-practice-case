@@ -25,4 +25,21 @@ public class MybatisTest {
         sqlSession.close();
     }
 
+    @Test
+    public void test2() throws IOException {
+
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        User user = new User();
+        user.setId(5);
+        user.setUsername("tom");
+
+        sqlSession.insert("user.insertUser",user);
+        sqlSession.commit();
+
+        sqlSession.close();
+
+    }
 }
