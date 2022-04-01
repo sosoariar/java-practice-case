@@ -14,19 +14,19 @@ import java.util.List;
 public class MybatisTest {
 
     @Test
-    public void test1() throws IOException {
+    public void selectUser() throws IOException {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<User> users = sqlSession.selectList("user.findAll");
         for(User user:users){
-            System.out.println(user);
+            Tools.log.info(user);
         }
         sqlSession.close();
     }
 
     @Test
-    public void test2() throws IOException {
+    public void insertUser() throws IOException {
 
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
@@ -44,7 +44,7 @@ public class MybatisTest {
     }
 
     @Test
-    public void test3() throws IOException {
+    public void updateUser() throws IOException {
 
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
@@ -55,6 +55,20 @@ public class MybatisTest {
         user.setUsername("jerry");
 
         sqlSession.update("user.updateUser",user);
+        sqlSession.commit();
+
+        sqlSession.close();
+
+    }
+
+    @Test
+    public void deleteUser() throws IOException {
+
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        sqlSession.delete("user.deleteUser",5);
         sqlSession.commit();
 
         sqlSession.close();
