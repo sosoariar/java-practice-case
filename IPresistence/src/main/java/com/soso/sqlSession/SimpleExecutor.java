@@ -18,7 +18,7 @@ import java.util.List;
 public class SimpleExecutor implements Executor{
 
     @Override
-    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, IntrospectionException, InvocationTargetException {
+    public static <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException, IntrospectionException, InvocationTargetException {
         // 注册驱动,获取链接
         Connection connection = configuration.getDataSource().getConnection();
         // 获取SQL语句: select * from user where id = #{id} and username = #{username}

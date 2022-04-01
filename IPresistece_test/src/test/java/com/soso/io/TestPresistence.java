@@ -6,6 +6,7 @@ import com.soso.sqlSession.SqlSessionFactory;
 import com.soso.sqlSession.SqlSessionFactoryBuilder;
 import org.junit.Test;
 import java.io.InputStream;
+import java.util.List;
 
 public class TestPresistence {
 
@@ -20,8 +21,12 @@ public class TestPresistence {
         user01.setId(1);
         user01.setUsername("zhangsan");
 
-        User user02 = sqlSession.selectOne("user.selectOne",user01);
+//        User user02 = sqlSession.selectOne("user.selectOne",user01);
 
+        List<User> users = sqlSession.selectList("user.selectList");
+        for(User user1:users){
+            System.out.println(user1);
+        }
     }
 
 }

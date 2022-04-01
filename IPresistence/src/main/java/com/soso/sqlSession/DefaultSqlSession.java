@@ -3,6 +3,9 @@ package com.soso.sqlSession;
 import com.soso.pojo.Configuration;
 import com.soso.pojo.MappedStatement;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DefaultSqlSession implements SqlSession {
@@ -13,18 +16,19 @@ public class DefaultSqlSession implements SqlSession {
         this.configuration = configuration;
     }
 
+    private Executor simpleExecutor = new SimpleExecutor();
+
     @Override
-    public <E> List<E> selectList(String statementid, Object... params) {
+    public <E> List<E> selectList(String statementid, Object... params) throws SQLException, IntrospectionException, NoSuchFieldException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
 
-        SimpleExecutor simpleExecutor = new SimpleExecutor();
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementid);
-//        List<Object> list = simpleExecutor.query(configuration,mappedStatement,params);
+        List<E>  query = SimpleExecutor.query(configuration,mappedStatement,params);
 
-        return null;
+        return query;
     }
 
     @Override
-    public <T> T selectOne(String statementid, Object... params) {
+    public <T> T selectOne(String statementid, Object... params) throws SQLException, IntrospectionException, NoSuchFieldException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
 
         List<Object> objects = selectList(statementid,params);
 
