@@ -23,6 +23,7 @@
         <module>IPresistece_test</module>
         <module>IPresistence</module>
         <module>clean_code</module>
+        <module>common-tools</module>
     </modules>
 
     <properties>

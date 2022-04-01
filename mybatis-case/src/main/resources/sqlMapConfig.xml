@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <!--加载外部的properties文件-->
+    <properties resource="jdbc.properties"></properties>
+
     <environments default="development">
 
         <environment id="development">

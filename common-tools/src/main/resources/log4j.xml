@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+<log4j:configuration>
+    <!-- ========================== 自定义输出格式说明================================ -->
+    <!-- %p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL -->
+    <!-- %r 输出自应用启动到输出该log信息耗费的毫秒数  -->
+    <!-- %c 输出所属的类目，通常就是所在类的全名 -->
+    <!-- %t 输出产生该日志事件的线程名 -->
+    <!-- %n 输出一个回车换行符，Windows平台为“/r/n”，Unix平台为“/n” -->
+    <!-- %d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyy MMM dd HH:mm:ss,SSS}，输出类似：2002年10月18日 22：10：28，921  -->
+    <!-- %l 输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)  -->
+    <!-- ========================================================================== -->
+
+    <!-- ========================== 输出方式说明================================ -->
+    <!-- Log4j提供的appender有以下几种:  -->
+    <!-- org.apache.log4j.ConsoleAppender(控制台),  -->
+    <!-- org.apache.log4j.FileAppender(文件),  -->
+    <!-- org.apache.log4j.DailyRollingFileAppender(每天产生一个日志文件), -->
+    <!-- org.apache.log4j.RollingFileAppender(文件大小到达指定尺寸的时候产生一个新的文件),  -->
+    <!-- org.apache.log4j.WriterAppender(将日志信息以流格式发送到任意指定的地方)   -->
+    <!-- ========================================================================== -->
+
+
+    <!--输出到控制台-->
+    <appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <!--Threshold是个全局的过滤器，他将把低于所设置的level的信息过滤不显示出来-->
+        <param name="Threshold" value="DEBUG" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n" />
+        </layout>
+    </appender>
+
+    <!-- 系统应用级别日志，日志达到一定大小后，产生新的问题 -->
+<!--    <appender name="fileMaxAppenderAll" class="org.apache.log4j.RollingFileAppender">
+        <param name="threshold" value="error" />
+        <param name="file" value="E:/logs/all.sys.log" />
+        <param name="maxFileSize" value="10M" />
+        <param name="maxBackupIndex" value="5" />
+        &lt;!&ndash; 设置是否在重新启动服务时，在原有日志的基础添加新日志 &ndash;&gt;
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p][%d{yyyy-MM-dd HH:mm:ss,SSS}][%c] :%m%n" />
+        </layout>
+    </appender>-->
+
+    <!--输出到文件 所有日志，根据name='DatePattern'设置每隔多久分割成一个新文件 -->
+<!--    <appender name="fileAppenderAll" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="E:/logs/all.log" />
+        &lt;!&ndash; value的格式，（天，小时，分钟）， 控制每隔多久分割成一个新文件 &ndash;&gt;
+        <param name="DatePattern" value=".yyyy-MM-dd-HH" />
+        &lt;!&ndash; 设置是否在重新启动服务时，在原有日志的基础添加新日志 &ndash;&gt;
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n" />
+        </layout>
+    </appender>-->
+
+    <!--输出到错误日志文件，只要加上filter过滤标签即可输出指定级别的日志  -->
+<!--    <appender name="fileAppenderError" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="E:/logs/error.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd-HH" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n" />
+        </layout>
+        &lt;!&ndash; 日志级别，必须LevelMin <= LevelMax ,否则不输出日志 &ndash;&gt;
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+    </appender>-->
+
+    <!-- HTML形式的错误日志，<layout>标签中使用org.apache.log4j.HTMLLayout -->
+<!--    <appender name="fileHTMLAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="threshold" value="error" />
+        <param name="file" value="E:/logs/all.log.html" />
+        <param name="maxFileSize" value="10M" />
+        <param name="maxBackupIndex" value="5" />
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.HTMLLayout" />
+    </appender>-->
+
+    <!-- XML形式错误日志 <layout>标签中使用org.apache.log4j.xml.XMLLayout -->
+<!--    <appender name="fileXMLAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="threshold" value="error" />
+        <param name="file" value="E:/logs/all.log.xml" />
+        <param name="maxFileSize" value="10M" />
+        <param name="maxBackupIndex" value="5" />
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.xml.XMLLayout" />
+    </appender>-->
+
+    <!-- 邮件日志，添加发送和接收日志的邮箱地址 -->
+<!--    <appender name="mailMAILAppender" class="org.apache.log4j.net.SMTPAppender">
+        <param name="threshold" value="debug" />
+        <param name="BufferSize" value="10" />
+        <param name="From" value="1076242265@163.com" />
+        <param name="SMTPHost" value="www.baidu.com" />
+        <param name="Subject" value="1076242265-log4j-Message" />
+        <param name="To" value="1076242265@163.com" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p][%d{yyyy-MM-dd HH:mm:ss,SSS}][%c] :%m%n" />
+        </layout>
+    </appender>-->
+
+    <!-- SOCKET日志 -->
+<!--    <appender name="remoteSocketAppender" class="org.apache.log4j.net.SocketAppender">
+        <param name="threshold" value="fatal" />
+        <param name="remoteHost" value="localhost" />
+        <param name="port" value="18845" />
+        <param name="locationInfo" value="true" />
+    </appender>-->
+
+
+    <!-- 输出sql日志文件 -->
+<!--    <appender name="fileSql" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="E:/logs/sql.log" />
+        <param name="DatePattern" value=".yyyy-MM-dd-HH" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n" />
+        </layout>
+        &lt;!&ndash; 日志级别，必须LevelMin <= LevelMax ,否则不输出日志 &ndash;&gt;
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+    </appender>-->
+
+    <!-- 指定接口日志，接口1，name可以按接口名进行自定义命名 -->
+<!--    <appender name="INTERFACE-METHOD-ONE" class="org.apache.log4j.DailyRollingFileAppender" >
+        <param name="DatePattern" value=".yyyy-MM-dd-HH" />
+        <param name="Append" value="true"/>
+        <param name="file" value="E:/logs/interfaceMethodOne.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+    </appender>-->
+
+    <!-- 指定接口日志，接口2，name可以按接口名进行自定义命名 -->
+<!--    <appender name="INTERFACE-METHOD-TWO" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value=".yyyy-MM-dd-HH" />
+        <param name="Append" value="true"/>
+        <param name="file" value="E:/logs/interfaceMethodTwo.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy.MM.dd HH:mm:ss SS} %5p [%t] %C{1}.%M(%L) | %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO" />
+            <param name="LevelMax" value="ERROR" />
+        </filter>
+    </appender>-->
+
+
+    <!-- 指定logger的设置，additivity指示是否叠加输出log，
+              如果是false，在INTERFACE-METHOD-ONE-PARTONE logger中日志不会被其它logger满足条件的logger(比如root)输出
+                将名称为INTERFACE-METHOD-ONE-PARTONE的logger，输出到“interfaceMethodOne”的appender
+
+               category的属性additivity="false"表示在category中定义日志输在root中过滤掉
+               如果不想过滤掉，就设置为true
+             所谓logger的名字也就是，在定义Logger时，构造函数的参数
+              Logger log = Logger.getLogger("INTERFACE-METHOD-ONE-PARTONE");
+
+                     注意：<logger>和<category>的区别
+          logger是category的子类，category现在已经不提倡使用。
+    -->
+<!--    <logger name="INTERFACE-METHOD-ONE-PARTONE" additivity="true">
+        <level class="org.apache.log4j.Level" value="DEBUG"/>
+        &lt;!&ndash; 指向上面定义的appender中的name，日志则会输出到指定文件中 &ndash;&gt;
+        <appender-ref ref="INTERFACE-METHOD-ONE"/>
+    </logger>
+
+    <category name="INTERFACE-METHOD-TWO-PARTONE" additivity="true">
+        <appender-ref ref="INTERFACE-METHOD-TWO"/>
+    </category>
+
+    &lt;!&ndash; 打印sql文件  &ndash;&gt;
+    <category name="com.yw.mapper" additivity="true">
+        <priority value="DEBUG" />
+        <appender-ref ref="fileSql" />
+    </category>-->
+    <!--
+    <category name="org.apache.mybatis">
+        <priority value="DEBUG" />
+        <appender-ref ref="fileSql" />
+    </category>
+    <category name="org.mybatis.spring">
+        <priority value="DEBUG" />
+        <appender-ref ref="fileSql" />
+    </category>
+     -->
+
+    <root>
+        <priority value="ALL" />
+        <appender-ref ref="consoleAppender" />
+<!--        <appender-ref ref="fileAppenderAll" />-->
+<!--        <appender-ref ref="fileAppenderError" />-->
+    </root>
+</log4j:configuration>

@@ -14,7 +14,7 @@ import java.util.List;
 public class MybatisTest {
 
     @Test
-    public void test1() throws IOException{
+    public void test1() throws IOException {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
