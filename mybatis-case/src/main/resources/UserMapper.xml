@@ -34,4 +34,14 @@
 
     </select>
 
+    <select id="findByIds" parameterType="list" resultType="user">
+        select * from user
+        <where>
+            <foreach collection="array" open="id in (" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </where>
+
+    </select>
+
 </mapper>

@@ -85,4 +85,22 @@ public class MybatisTest {
 
     }
 
+    @Test
+    public void selectByCollection() throws IOException {
+
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+
+        int[] arr = {1,2};
+
+        List<User> all = mapper.findByIds(arr);
+
+        for(User user:all){
+            Tools.log.info(user);
+        }
+
+    }
+
 }
