@@ -9,8 +9,8 @@
     <properties resource="jdbc.properties"></properties>
 
     <typeAliases>
-        <typeAlias type="com.soso.bean.User" alias="user"></typeAlias>
-<!--        <package name="com.soso.bean"/>-->
+<!--        <typeAlias type="com.soso.bean.User" alias="user"></typeAlias>-->
+        <package name="com.soso.bean"/>
     </typeAliases>
 
     <environments default="development">

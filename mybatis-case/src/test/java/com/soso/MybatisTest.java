@@ -33,7 +33,7 @@ public class MybatisTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         User user = new User();
-        user.setId(5);
+        user.setId(3);
         user.setUsername("tom");
 
         sqlSession.insert("user.insertUser",user);
