@@ -160,4 +160,22 @@ public class MybatisTest {
         System.out.println(user1==user2);
     }
 
+    @Test
+    public void pageHelperTest(){
+
+//        PageHelper.startPage(1,1);
+//        List<User> users = userMapper.selectUser();
+//        for (User user : users) {
+//            System.out.println(user);
+//        }
+//
+//        PageInfo<User> pageInfo = new PageInfo<>(users);
+//        System.out.println("总条数："+pageInfo.getTotal());
+//        System.out.println("总页数："+pageInfo.getPages());
+//        System.out.println("当前页："+pageInfo.getPageNum());
+//        System.out.println("每页显示的条数："+pageInfo.getPageSize());
+
+
+    }
+
 }
