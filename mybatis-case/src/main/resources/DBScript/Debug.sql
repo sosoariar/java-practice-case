@@ -21,3 +21,5 @@ create table mybatis.user
     id int auto_increment primary key,
     username varchar(50) null
 );
+
+SELECT * FROM ORDERS O,USER U WHERE O.UID = U.ID;
