@@ -144,10 +144,11 @@ public class MybatisTest {
         // 第一次查询id为1的用户
         User user1 = userMapper.findUserById(1);
 
-        //更新用户
         User user = new User();
         user.setId(1);
         user.setUsername("tom");
+
+        // update 刷新了缓存, 一级缓存中没有数据了
         userMapper.updateUser(user);
         sqlSession.commit();
         sqlSession.clearCache();
