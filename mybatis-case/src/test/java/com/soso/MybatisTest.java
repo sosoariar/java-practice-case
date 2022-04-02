@@ -1,6 +1,8 @@
 package com.soso;
 
+import com.soso.bean.Order;
 import com.soso.bean.User;
+import com.soso.mapper.IUserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -99,6 +101,21 @@ public class MybatisTest {
 
         for(User user:all){
             Tools.log.info(user);
+        }
+
+    }
+
+    @Test
+    public void selectByOrder() throws IOException{
+
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
+
+        List<Order> orderAndUser = mapper.findOrderAndUser();
+        for(Order order:orderAndUser){
+            Tools.log.info(order);
         }
 
     }

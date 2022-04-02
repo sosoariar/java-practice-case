@@ -7,15 +7,17 @@
 
     <resultMap id="orderMap" type="com.soso.bean.User">
         <result property="id" column="uid"></result>
-        <result property="username" column="username"></result>
-        <collection property="orderList" ofType="com.soso.bean.Order">
+        <result property="orderTime" column="orderTime"></result>
+        <result property="total" column="total"></result>
+
+        <association property="user" javaType="com.soso.bean.User">
             <result property="id" column="id"></result>
-            <result property="orderTime" column="orderTime"></result>
-            <result property="total" column="total"></result>
-        </collection>
+            <result property="username" column="username"></result>
+        </association>
+
     </resultMap>
 
-    <select id="findAllUserAndRole" resultType="com.soso.bean.Order">
+    <select id="findOrderAndUser" resultMap="orderMap">
         select * from user u,orders o where u.id = o.uid
     </select>
 
