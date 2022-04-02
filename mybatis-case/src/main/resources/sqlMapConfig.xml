@@ -57,6 +57,11 @@
         <plugin interceptor="com.soso.plugin.MyPlugin">
             <property name="dialect" value="mysql"/>
         </plugin>
+
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <property name="dialect" value="mysql"/>
+        </plugin>
+
     </plugins>
     <!--引入映射配置文件-->
     <mappers>
