@@ -7,6 +7,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,9 +18,7 @@ public class MybatisTest {
 
     @Test
     public void selectUser() throws IOException {
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+
         List<User> users = sqlSession.selectList("user.findAll");
         for(User user:users){
             Tools.log.info(user);
@@ -30,18 +29,18 @@ public class MybatisTest {
     @Test
     public void insertUser() throws IOException {
 
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        User user = new User();
+        user.setId(5);
+        user.setUsername("jerry");
+
+        sqlSession.insert("user.insertUser",user);
+        sqlSession.commit();
+        sqlSession.close();
 
     }
 
     @Test
     public void updateUser() throws IOException {
-
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         User user = new User();
         user.setId(5);
@@ -49,7 +48,6 @@ public class MybatisTest {
 
         sqlSession.update("user.updateUser",user);
         sqlSession.commit();
-
         sqlSession.close();
 
     }
@@ -57,13 +55,8 @@ public class MybatisTest {
     @Test
     public void deleteUser() throws IOException {
 
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-
         sqlSession.delete("user.deleteUser",5);
         sqlSession.commit();
-
         sqlSession.close();
 
     }
@@ -71,9 +64,6 @@ public class MybatisTest {
     @Test
     public void selectByCondition() throws IOException {
 
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
         IUserDao mapper = sqlSession.getMapper(IUserDao.class);
 
         User userTemp = new User();
@@ -90,9 +80,6 @@ public class MybatisTest {
     @Test
     public void selectByCollection() throws IOException {
 
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
         IUserDao mapper = sqlSession.getMapper(IUserDao.class);
 
         int[] arr = {1,2};
@@ -108,9 +95,7 @@ public class MybatisTest {
     @Test
     public void selectByOrder() throws IOException{
 
-        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+
         IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
 
         List<Order> orderAndUser = mapper.findOrderAndUser();
@@ -119,5 +104,13 @@ public class MybatisTest {
         }
 
     }
+
+    @Before
+    public void before() throws IOException{
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        sqlSession = sqlSessionFactory.openSession();
+    }
+    private SqlSession sqlSession = null;
 
 }
