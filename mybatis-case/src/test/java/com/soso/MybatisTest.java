@@ -151,7 +151,7 @@ public class MybatisTest {
         // update 刷新了缓存, 一级缓存中没有数据了
         userMapper.updateUser(user);
         sqlSession.commit();
-        sqlSession.clearCache();
+        sqlSession.clearCache();    // 该方法也可以刷新缓存
 
         // 第二次查询id为1的用户
         User user2 = userMapper.findUserById(1);
