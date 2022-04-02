@@ -16,6 +16,9 @@ import java.util.List;
 
 public class MybatisTest {
 
+    private SqlSession sqlSession = null;
+    private IUserMapper userMapper = null;
+
     @Test
     public void selectUser() throws IOException {
 
@@ -105,12 +108,35 @@ public class MybatisTest {
 
     }
 
+    @Test
+    public void addUser(){
+
+        User user = new User();
+
+        for(int i=11; i<20; i++){
+            user.setId(i);
+            user.setUsername("mybatis"+i);
+            userMapper.addUser(user);
+        }
+
+    }
+
+    @Test
+    public void updateUserByAnnotation(){
+        User user = new User();
+        for(int i=1; i<10; i++){
+            user.setId(i);
+            user.setUsername("mybatis"+i);
+            userMapper.updateUser(user);
+        }
+    }
+
     @Before
     public void before() throws IOException{
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        sqlSession = sqlSessionFactory.openSession();
+        sqlSession = sqlSessionFactory.openSession(true);
+        userMapper = sqlSession.getMapper(IUserMapper.class);
     }
-    private SqlSession sqlSession = null;
 
 }
