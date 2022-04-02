@@ -8,7 +8,7 @@ import com.soso.sqlSession.SqlSessionFactoryBuilder;
 import java.io.InputStream;
 import java.util.List;
 
-public class UserDaoImpl implements IUserDao{
+public class UserDaoImpl implements IUserMapper{
 
     @Override
     public List<User> findAll() throws Exception {

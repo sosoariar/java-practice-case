@@ -2,7 +2,7 @@ package com.soso.bean;
 
 import java.util.List;
 
-public interface IUserDao {
+public interface IUserMapper {
 
     // 查询所有用户
     public List<User> findAll() throws Exception;

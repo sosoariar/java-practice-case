@@ -4,9 +4,17 @@ import com.soso.bean.Order;
 import com.soso.bean.User;
 import org.apache.ibatis.annotations.*;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IUserMapper {
+
+
+    //多条件组合查询：演示if
+    public List<User> findByCondition(User user);
+
+    //多值查询：演示foreach
+    public List<User> findByIds(int[] ids);
 
     public List<Order> findOrderAndUser();
 
@@ -31,7 +39,7 @@ public interface IUserMapper {
             @Result(property = "orderList",column = "id",javaType = List.class,
                     many=@Many(select = "com.soso.mapper.IOrderMapper.findOrderByUid"))
     })
-
     public List<User> findAll();
 
+    User findUserById(int i);
 }

@@ -67,7 +67,7 @@ public class MybatisTest {
     @Test
     public void selectByCondition() throws IOException {
 
-        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
 
         User userTemp = new User();
         userTemp.setUsername("tom");
@@ -83,7 +83,7 @@ public class MybatisTest {
     @Test
     public void selectByCollection() throws IOException {
 
-        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+        IUserMapper mapper = sqlSession.getMapper(IUserMapper.class);
 
         int[] arr = {1,2};
 
@@ -137,6 +137,26 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         sqlSession = sqlSessionFactory.openSession(true);
         userMapper = sqlSession.getMapper(IUserMapper.class);
+    }
+
+    @Test
+    public void firstLevelCache(){
+        // 第一次查询id为1的用户
+        User user1 = userMapper.findUserById(1);
+
+        //更新用户
+        User user = new User();
+        user.setId(1);
+        user.setUsername("tom");
+        userMapper.updateUser(user);
+        sqlSession.commit();
+        sqlSession.clearCache();
+
+        // 第二次查询id为1的用户
+        User user2 = userMapper.findUserById(1);
+
+
+        System.out.println(user1==user2);
     }
 
 }
