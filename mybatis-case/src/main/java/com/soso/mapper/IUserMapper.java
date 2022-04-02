@@ -2,10 +2,7 @@ package com.soso.mapper;
 
 import com.soso.bean.Order;
 import com.soso.bean.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,5 +22,16 @@ public interface IUserMapper {
 
     @Delete("delete from user where id = #{id}")
     public void deleteUser(Integer id);
+
+    //查询所有用户、同时查询每个用户关联的订单信息
+    @Select("select * from user")
+    @Results({
+            @Result(property = "id",column = "id"),
+            @Result(property = "username",column = "username"),
+            @Result(property = "orderList",column = "id",javaType = List.class,
+                    many=@Many(select = "com.soso.mapper.IOrderMapper.findOrderByUid"))
+    })
+
+    public List<User> findAll();
 
 }
