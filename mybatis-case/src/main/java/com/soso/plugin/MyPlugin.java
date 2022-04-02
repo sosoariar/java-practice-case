@@ -1,10 +1,8 @@
 package com.soso.plugin;
 
+import com.soso.Tools;
 import org.apache.ibatis.executor.statement.StatementHandler;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.plugin.Intercepts;
-import org.apache.ibatis.plugin.Invocation;
-import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.plugin.*;
 
 import java.sql.Connection;
 import java.util.Properties;
@@ -18,16 +16,18 @@ public class MyPlugin implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        return null;
+        Tools.log.info("对方法进行了增强....");
+        return invocation.proceed();
     }
-
+    /*为什么需要这个方法*/
     @Override
     public Object plugin(Object target) {
-        return null;
+        Object wrap = Plugin.wrap(target, this);
+        return wrap;
     }
-
+    /*为什么需要这个方法*/
     @Override
     public void setProperties(Properties properties) {
-
+        Tools.log.info("获取到的配置文件的参数是："+properties);
     }
 }
